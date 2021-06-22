@@ -115,12 +115,14 @@ int main(int argc, char *argv[])
         std::remove_if(
             toy_vector.begin(),
             toy_vector.end(),
-            [=](auto const &toy_obj_ptr)
-            { return toy_obj_ptr == toy_vector[3]; }),
+            [&](auto const toy_obj_ptr)
+            { return *toy_obj_ptr == *toy_vector[3]; }),
         toy_vector.end());
-        -> Segmentation Fault is occurred on "delete x2"
-    */
-    toy_vector.shrink_to_fit();
+    toy_vector.shrink_to_fit();    
+
+    std::cout << x2->data.m_id << std::endl;  // -> x
+    //std::cout << toy_vector[3]->m_id << std::endl;  // cause Segmentation fault
+    */    
     delete x2;
     printf("After ----------\n");
     dump2();
