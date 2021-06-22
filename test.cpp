@@ -25,19 +25,21 @@ int main(int argc, char *argv[])
     printf("<<< example ND:char, LD: int >>> \n");
 
     typedef Graph<char, int> GraphCharInt;
+    typedef Node<char, int> NodeCharInt;
+    typedef Link<char, int> LinkCharInt;
     GraphCharInt g;
 
     auto dump = [&]()
     {
-        g.forEachNode([&](GraphCharInt::Node *n)
+        g.forEachNode([&](NodeCharInt *n)
                       {
                           printf("Node '%c'\n", n->data);
-                          n->forEachOutgoingLink([&](GraphCharInt::Link *L)
+                          n->forEachOutgoingLink([&](LinkCharInt *L)
                                                  {
                                                      printf(" %i → '%c'\n", L->data, L->to->data);
                                                      return true;
                                                  });
-                          n->forEachIncomingLink([&](GraphCharInt::Link *L)
+                          n->forEachIncomingLink([&](LinkCharInt *L)
                                                  {
                                                      printf(" %i ← '%c'\n", L->data, L->from->data);
                                                      return true;
@@ -63,9 +65,12 @@ int main(int argc, char *argv[])
     printf("After ----------\n");
     dump();
 
+
     printf("<<< example 2. ND:ToyClass, LD: int >>> \n");
 
     typedef Graph<ToyClass, int> GraphToyInt;
+    typedef Node<ToyClass, int> NodeToyInt;
+    typedef Link<ToyClass, int> LinkToyInt;
     std::vector<ToyClass *> toy_vector;
     GraphToyInt g2;
 
@@ -76,15 +81,15 @@ int main(int argc, char *argv[])
 
     auto dump2 = [&]()
     {
-        g2.forEachNode([&](GraphToyInt::Node *n)
+        g2.forEachNode([&](NodeToyInt *n)
                        {
                            printf("Node '%c'\n", n->data);
-                           n->forEachOutgoingLink([&](GraphToyInt::Link *L)
+                           n->forEachOutgoingLink([&](LinkToyInt *L)
                                                   {
                                                       printf(" %i → '%c'\n", L->data, L->to->data);
                                                       return true;
                                                   });
-                           n->forEachIncomingLink([&](GraphToyInt::Link *L)
+                           n->forEachIncomingLink([&](LinkToyInt *L)
                                                   {
                                                       printf(" %i ← '%c'\n", L->data, L->from->data);
                                                       return true;
@@ -126,6 +131,7 @@ int main(int argc, char *argv[])
     delete x2;
     printf("After ----------\n");
     dump2();
+
 
     /*
     std::cout << *toy_vector[3] << std::endl;
