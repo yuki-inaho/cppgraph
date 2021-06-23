@@ -2,6 +2,7 @@
 #define CPPGRAPH_H_INCLUDED
 
 #include <memory>
+#include <vector>
 
 template<typename ND, typename LD> struct Node;
 template<typename ND, typename LD> struct Link;
@@ -35,6 +36,15 @@ struct Node {
         while (lastOut) delete lastOut;
         if (prev) prev->next = next; else graph.firstNode = next;
         if (next) next->prev = prev; else graph.lastNode = prev;
+    }
+
+    std::vector<Node<ND, LD> *> getOutgoingNeighborNodes(){
+        std::vector<Node<ND, LD> *> neighbor_node_list;
+        for (Link<ND, LD> *x=firstOut; x; x=x->nextInFrom) {
+            neighbor_node_list.push_back(x->to);
+        }
+        std::unique(neighbor_node_list.begin(), neighbor_node_list.end());
+        return neighbor_node_list;
     }
 
     template<typename CBack>

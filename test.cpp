@@ -65,7 +65,6 @@ int main(int argc, char *argv[])
     printf("After ----------\n");
     dump();
 
-
     printf("<<< example 2. ND:ToyClass, LD: int >>> \n");
 
     typedef Graph<ToyClass, int> GraphToyInt;
@@ -112,8 +111,15 @@ int main(int argc, char *argv[])
     g2.addLink(7, x2, b2);
     g2.addLink(8, c2, x2);
     g2.addLink(9, x2, c2);
+    std::vector<NodeToyInt *> neighbor_list_a;
 
+    neighbor_list_a = a2->getOutgoingNeighborNodes();    
     printf("Before ---------\n");
+    std::cout << "neighbor:" << std::endl;
+    for(auto neighbor_a: neighbor_list_a){
+        std::cout << neighbor_a->data << " ";
+    }
+    std::cout << std::endl;
     dump2();
     /*
     toy_vector.erase(
@@ -127,11 +133,17 @@ int main(int argc, char *argv[])
 
     std::cout << x2->data.m_id << std::endl;  // -> x
     //std::cout << toy_vector[3]->m_id << std::endl;  // cause Segmentation fault
-    */    
+    */
     delete x2;
-    printf("After ----------\n");
-    dump2();
 
+    neighbor_list_a = a2->getOutgoingNeighborNodes();
+    printf("After ----------\n");
+    std::cout << "neighbor:" << std::endl;
+    for(auto neighbor_a: neighbor_list_a){
+        std::cout << neighbor_a->data << " ";
+    }
+    std::cout << std::endl;
+    dump2();
 
     /*
     std::cout << *toy_vector[3] << std::endl;
